@@ -220,6 +220,7 @@ formSearch.addEventListener('submit', (event) => {
         to: cityTo,
         when: inputDateDepart.value,
     };
+    console.log(formData);
     if (formData.from && formData.to) {
         const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}` +
         `&destination=${formData.to.code}&one_way=true`;
