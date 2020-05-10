@@ -221,6 +221,7 @@ formSearch.addEventListener('submit', (event) => {
         when: inputDateDepart.value,
     };
     
+
     if (formData.from && formData.to) {
         const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}` +
         `&destination=${formData.to.code}&one_way=true`;
@@ -236,6 +237,7 @@ formSearch.addEventListener('submit', (event) => {
     }
 });
 //Вызовы фунцкий
+
 
 getData(proxy + citiesApi, (data) => {
     city = JSON.parse(data).filter(item => item.name)
