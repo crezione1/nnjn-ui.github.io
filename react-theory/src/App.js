@@ -2,17 +2,26 @@ import React, { Component } from 'react';
 import './App.css';
 import { render } from 'react-dom';
 import Car from './Car/Car'
+import ErrorBoundary from './ErrorBoundary/ErrorBroundary'
+import Counter from './Counter/Counter';
+
+
 
 class App extends Component {
 
-  state = {
-    cars : [
-      {name: 'Ford', year: 2020},
-      {name: 'Audi', year: 2019},
-      {name: 'Mazda', year: 2010}
-    ],
-    pageTitle: 'React components',
-    showCars: false
+  constructor(props) {
+    console.log('App constructor');
+    super(props)
+
+    this.state = {
+      cars : [
+        {name: 'Ford', year: 2020},
+        {name: 'Audi', year: 2019},
+        {name: 'Mazda', year: 2010}
+      ],
+      pageTitle: 'React components',
+      showCars: false
+    }
   }
 
   changeTitleHedler = (newTitle) => {
@@ -45,7 +54,16 @@ class App extends Component {
 
   }
 
+  componentWillMount() {
+    console.log('App componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('App componentDidMount');
+  }
+
   render() {
+    console.log('App render');
     const divStyle = {
       textAlign: 'center'
     }
@@ -54,21 +72,37 @@ class App extends Component {
     if (this.state.showCars) {
       cars = this.state.cars.map((car, index) => {
         return (
-          <Car
-            key={index}
-            name={car.name}
-            year={car.yaer}
-            onDelete={this.deleteHendler.bind(this, index)}
-            onChangeName={event => this.onChangeName(event.target.value, index)} />
+          <ErrorBoundary key={index}>
+            <Car
+              name={car.name}
+              year={car.yaer}
+              onDelete={this.deleteHendler.bind(this, index)}
+              onChangeName={event => this.onChangeName(event.target.value, index)} />
+            </ErrorBoundary>
         )
       }) 
     }
 
     return (
         <div style={divStyle}>
-          <h1>{this.state.pageTitle}</h1>
-          <button onClick={this.toggleCarsHendler}>Toggle cars</button>
+
+          {/* <h1>{this.state.pageTitle}</h1> */}
+    <h1>{this.props.title}</h1>
+
+    <Counter/>
+
+          <hr/>
+          <button 
+          style={{marginTop: 20}}
+          className={'AppButton'}
+          onClick={this.toggleCarsHendler}>Toggle cars</button>
+          <div style={{
+            width: 400,
+            margin: 'auto',
+            paddingTop: '20px'
+          }}>
           { cars }
+          </div>
       </div>
     );
   }
