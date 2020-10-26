@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import Layuot from './hoc/Layout/Layout'
+import Quiz from './containers/Quiz/Quiz'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <h1>Hello React</h1>
-      </div>
+      <Layuot>
+        <Quiz />
+
+      </Layuot>
     );
   }
 }
 
-export default App;
+export default App
